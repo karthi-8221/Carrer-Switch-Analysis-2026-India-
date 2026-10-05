@@ -4,7 +4,7 @@ A Power BI dashboard designed exclusively for people transitioning into technolo
 
 **Data period:** the dataset and repository titles contain “2026”, but every supplied record has `scraped_at = 2025-06-10`. The Kaggle description also identifies a 2025 snapshot. Treat the results as analysis of that snapshot, not current vacancies or a year-over-year trend.
 
-**Report status:** the supplied PBIX is included unchanged. Its **Job Postings** card currently counts expanded skill rows, so use the verified posting counts below until the card is bound to the existing `Job Postings orig` measure. The [validation notes](docs/data-quality.md#report-check-posting-card) explain the issue and correction. Dashboard screenshots and an interactive Power BI Service link are not included in this version.
+**Report status:** the supplied PBIX is included unchanged. Its **Job Postings** card currently counts expanded skill rows, so use the verified posting counts below until the card is bound to the existing `Job Postings orig` measure. The [validation notes](docs/data-quality.md#report-check-posting-card) explain the issue and correction. Screenshots of both dashboard pages are included below. An interactive Power BI Service link is not included in this version.
 
 ## Explore the project
 
@@ -18,6 +18,8 @@ A Power BI dashboard designed exclusively for people transitioning into technolo
 
 ## Dashboard pages
 
+The screenshots below are static previews supplied by the project author, with **Business Analyst** selected on both pages.
+
 ### 1. Career Accessibility
 
 The page heading is **Tech Career Market Overview**. This page helps career switchers compare potential technology career paths by examining entry requirements, salary, fresher-friendly opportunities, work arrangements, and hiring patterns. It contains:
@@ -27,9 +29,13 @@ The page heading is **Tech Career Market Overview**. This page helps career swit
 - A career opportunity quadrant: median minimum experience on the horizontal axis, median disclosed salary on the vertical axis, and fresher-friendly posting count as bubble size.
 - Career Accessibility Score by role.
 
+![Tech Career Market Overview dashboard with Business Analyst selected](screenshots/career-accessibility.png)
+
 ### 2. Career Switcher Profile
 
 This page helps a career switcher explore a chosen target role and plan their transition. Select one role to inspect its accessibility score, average disclosed salary, posting count, average minimum experience, and fresher-friendly share. Supporting charts help users identify skills to learn, compare advertised salaries across experience tiers, and explore the top collection cities.
+
+![Career Switcher Profile dashboard with Business Analyst selected](screenshots/career-switcher-profile.png)
 
 The saved role selection is **Data Analyst**. Role selectors are synchronized across pages. On the overview page, the role selector does not filter the score comparison or opportunity quadrant, preserving the comparison across roles.
 

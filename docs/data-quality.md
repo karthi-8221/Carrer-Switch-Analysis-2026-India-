@@ -46,4 +46,6 @@ The repository includes the original supplied PBIX and CSV without changes. File
 
 The Job Postings card correction is **pending**. In Power BI Desktop, select that card and replace its current count field with the existing `Job Skills Cleaned[Job Postings orig]` measure. With Data Analyst selected and no additional filters, the expected job-record count is **4,729**. Save the report after verifying the replacement across roles.
 
-Native rendering, slicer interactions, and dashboard screenshots were not verified or captured for this upload. The repository therefore provides a downloadable report with a documented known issue rather than claiming completed visual QA.
+User-supplied screenshots of both report pages are included in `screenshots/` and embedded in the README. Both previews show Business Analyst selected. They are static captures; native slicer interactions and the pending correction in the downloadable PBIX have not been reverified.
+
+The profile screenshot's Job Postings card shows **4.399K**, while the overview screenshot's total and the independently verified Business Analyst dataset count are **4,505**. These previews therefore do not establish that the posting-count issue has been resolved.

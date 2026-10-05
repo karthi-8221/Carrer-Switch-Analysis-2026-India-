@@ -1,4 +1,4 @@
-# Tech Career Trends in India 2026
+# Tech Career Switcher Analytics — India
 
 A Power BI dashboard designed exclusively for people transitioning into technology careers in India. It helps career switchers compare roles by job demand, experience requirements, salary, skills, location, and work arrangements to make informed decisions about their next career path.
 

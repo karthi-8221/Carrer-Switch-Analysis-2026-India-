@@ -1,0 +1,130 @@
+// Extracted from the supplied PBIX. These are measure definitions for reference, not a standalone DAX query.
+
+// Home table: indian_tech_jobs_2026
+Fresher Friendly % =
+DIVIDE(
+    CALCULATE(
+        COUNT('indian_tech_jobs_2026'[job_id]),
+        'indian_tech_jobs_2026'[is_fresher_friendly] = TRUE()
+    ),
+    CALCULATE(
+        COUNT('indian_tech_jobs_2026'[job_id]),
+        REMOVEFILTERS('indian_tech_jobs_2026'[is_fresher_friendly])
+    )
+)
+
+// Home table: indian_tech_jobs_2026
+Average Salary (LPA) =
+CALCULATE(
+    AVERAGE('indian_tech_jobs_2026'[salary_midpoint_lpa]),
+    'indian_tech_jobs_2026'[salary_disclosed] = TRUE()
+)
+
+// Home table: Job Skills Cleaned
+Skill Job Count =
+DISTINCTCOUNT('Job Skills Cleaned'[Job postings])
+
+// Home table: Job Skills Cleaned
+Skill Type Job Count =
+DISTINCTCOUNT('Job Skills Cleaned'[Job postings])
+
+// Home table: Job Skills Cleaned
+Average Minimum Experience =
+AVERAGE('indian_tech_jobs_2026'[experience_min_yrs])
+
+// Home table: Job Skills Cleaned
+Demand Score =
+VAR CurrentDemand =
+    COUNT('indian_tech_jobs_2026'[job_id])
+VAR MinDemand =
+    MINX(
+        ALL('indian_tech_jobs_2026'[role_category]),
+        CALCULATE(
+            COUNT('indian_tech_jobs_2026'[job_id])
+        )
+    )
+VAR MaxDemand =
+    MAXX(
+        ALL('indian_tech_jobs_2026'[role_category]),
+        CALCULATE(
+            COUNT('indian_tech_jobs_2026'[job_id])
+        )
+    )
+RETURN
+    DIVIDE(
+        CurrentDemand - MinDemand,
+        MaxDemand - MinDemand
+    ) * 100
+
+// Home table: Job Skills Cleaned
+Experience Accessibility Score =
+VAR CurrentExperience =
+    [Average Minimum Experience]
+VAR MinExperience =
+    MINX(
+        ALL('indian_tech_jobs_2026'[role_category]),
+        CALCULATE(
+            [Average Minimum Experience]
+        )
+    )
+VAR MaxExperience =
+    MAXX(
+        ALL('indian_tech_jobs_2026'[role_category]),
+        CALCULATE(
+            [Average Minimum Experience]
+        )
+    )
+RETURN
+    DIVIDE(
+        MaxExperience - CurrentExperience,
+        MaxExperience - MinExperience
+    ) * 100
+
+// Home table: Job Skills Cleaned
+Fresher Friendly Score =
+[Fresher Friendly %] * 100
+
+// Home table: Job Skills Cleaned
+Career Accessibility Score =
+    [Fresher Friendly Score] * 0.40
+    + [Experience Accessibility Score] * 0.35
+    + [Demand Score] * 0.25
+
+// Home table: Job Skills Cleaned
+Average Career Accessibility =
+AVERAGEX(
+    ALL('indian_tech_jobs_2026'[role_category]),
+    [Career Accessibility Score]
+)
+
+// Home table: Job Skills Cleaned
+Actionable Skill Job Count =
+DISTINCTCOUNT('Job Skills Cleaned'[Job postings])
+
+// Home table: Job Skills Cleaned
+Job Postings orig =
+DISTINCTCOUNT('indian_tech_jobs_2026'[job_id])
+
+// Home table: indian_tech_jobs_2026
+Median Minimum Experience =
+MEDIAN(
+    'indian_tech_jobs_2026'[experience_min_yrs]
+)
+
+// Home table: indian_tech_jobs_2026
+Median Salary (LPA) =
+CALCULATE(
+    MEDIAN(
+        'indian_tech_jobs_2026'[salary_midpoint_lpa]
+    ),
+    'indian_tech_jobs_2026'[salary_disclosed] = TRUE()
+)
+
+// Home table: indian_tech_jobs_2026
+Fresher Openings =
+CALCULATE(
+    DISTINCTCOUNT(
+        'indian_tech_jobs_2026'[job_id]
+    ),
+    'indian_tech_jobs_2026'[is_fresher_friendly] = TRUE()
+)

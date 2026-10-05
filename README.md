@@ -1,130 +1,93 @@
-# 📊 Tech Career Trends in India 2026
+# Tech Career Trends in India 2026
 
-An interactive Power BI dashboard analyzing technology job postings in India to help career switchers understand **role demand, salary, experience requirements, skills, locations, work modes, and hiring patterns**.
+A Power BI portfolio project for exploring technology roles, salaries, experience requirements, skills, locations, and work modes in an Indian job-posting dataset.
 
-The project analyzes **23,201 technology job postings across 32 attributes** and transforms raw job-posting data into an interactive career exploration tool.
+**Data period:** the dataset and repository titles contain “2026”, but every supplied record has `scraped_at = 2025-06-10`. The Kaggle description also identifies a 2025 snapshot. Treat the results as analysis of that snapshot, not current vacancies or a year-over-year trend.
 
----
+**Report status:** the supplied PBIX is included unchanged. Its **Job Postings** card currently counts expanded skill rows, so use the verified posting counts below until the card is bound to the existing `Job Postings orig` measure. The [validation notes](docs/data-quality.md#report-check-posting-card) explain the issue and correction. Dashboard screenshots and an interactive Power BI Service link are not included in this version.
 
-## 🎯 Project Objective
+## Explore the project
 
-Choosing a technology career can be difficult when information about job demand, required skills, salary, and experience is scattered across different job portals.
+- [Download the Power BI report](powerbi/Tech%20Trends%20for%20Freshers.pbix)
+- [Dataset and attribution](data/README.md)
+- [Methodology and accessibility score](docs/methodology.md)
+- [Data dictionary](docs/data-dictionary.md)
+- [Validation findings](docs/data-quality.md)
+- [Open and refresh the report](docs/setup.md)
+- [Extracted DAX measures](model/measures.dax) and [Power Query steps](model/power-query)
 
-This project aims to answer practical questions such as:
+## Dashboard pages
 
-- Which technology roles have the highest demand?
-- Where are technology jobs concentrated?
-- What skills are employers looking for?
-- How does salary change with experience?
-- Which roles are more accessible to career switchers?
-- How many opportunities are marked as fresher-friendly?
-- Which work modes are common across major technology cities?
-- What types of companies are hiring for different roles?
+### 1. Career Accessibility
 
-The goal is to turn job-market data into a **career exploration dashboard** rather than simply presenting descriptive charts.
+The page heading is **Tech Career Market Overview**. It contains:
 
----
-
-## 📈 Dashboard
-
-The dashboard consists of two interactive pages.
-
-### 1. Tech Career Market Overview
-
-Provides a market-level view of the technology job landscape.
-
-Key visuals include:
-
-- **Work Mode by Top Tech Cities**
-  - Compares Hybrid, On-site, and Remote opportunities across major cities.
-
-- **Hiring Distribution by Company Size**
-  - Shows how hiring is distributed across Large, Mid-sized, and Small/Startup companies.
-
-- **Career Opportunity Quadrant**
-  - Compares roles using median minimum experience, median salary, and fresher-friendly openings.
-
-- **Career Accessibility Score by Role**
-  - Provides a comparative view of role accessibility using the project's defined accessibility metric.
+- Work mode by collection city (`scraped_city`).
+- Hiring distribution by company size and role.
+- A career opportunity quadrant: median minimum experience on the horizontal axis, median disclosed salary on the vertical axis, and fresher-friendly posting count as bubble size.
+- Career Accessibility Score by role.
 
 ### 2. Career Switcher Profile
 
-Allows users to select a technology role and explore its market profile.
+Select one role to inspect its accessibility score, average disclosed salary, posting count, average minimum experience, and fresher-friendly share. Supporting charts show salary by experience tier, actionable skills, and the top collection cities.
 
-The page provides:
+The saved role selection is **Data Analyst**. Role selectors are synchronized across pages. On the overview page, the role selector does not filter the score comparison or opportunity quadrant, preserving the comparison across roles.
 
-- Career Accessibility Score
-- Average Salary
-- Job Postings
-- Average Minimum Experience
-- Fresher Friendly %
-- Average Salary by Experience Level
-- Actionable Skills for the Selected Role
-- Top 10 Cities by Job Demand
+## Snapshot findings
 
-The role slicer allows the user to explore the characteristics of different technology careers interactively.
+- **23,201 records**, **32 source columns**, and **6 role categories**.
+- **4,182 records (18.0%)** are flagged as fresher-friendly.
+- **2,768 records (11.9%)** disclose salaries. The median of their salary midpoints is **14.0 LPA**.
+- **Data Scientist** has the largest record count: **6,455**.
+- **Data Analyst** has the highest score under this project's chosen accessibility formula: **62.02**.
 
----
+| Role | Postings | Fresher-friendly | Disclosed salaries | Median salary (LPA) | Accessibility score |
+| --- | --- | --- | --- | --- | --- |
+| Data Analyst | 4,729 | 27.2% | 640 | 9.5 | 62.02 |
+| Data Scientist | 6,455 | 13.6% | 757 | 17.5 | 38.10 |
+| Business Analyst | 4,505 | 17.8% | 460 | 13.5 | 37.95 |
+| Machine Learning Engineer | 4,004 | 19.8% | 473 | 14.0 | 31.96 |
+| Python Developer | 1,586 | 13.8% | 222 | 15.0 | 22.95 |
+| Data Engineer | 1,922 | 10.3% | 216 | 17.0 | 5.85 |
 
-## 🗂️ Dataset
+These values are independently reproduced from the unchanged CSV with no report filters. LPA means lakh rupees per annum. Salary comparisons use the midpoint of the advertised range and only records flagged `salary_disclosed = TRUE`. Repeated URLs mean record counts should not be interpreted as unique live vacancies.
 
-The project uses the:
-
-`indian_tech_jobs_2026`
-
-dataset containing:
-
-| Attribute | Value |
-|---|---:|
-| Job postings | 23,201 |
-| Columns | 32 |
-| Geographic scope | India |
-| Data type | Technology job postings |
-
-Important fields include:
-
-- `job_title`
-- `role_category`
-- `company_name`
-- `primary_city`
-- `experience_min_yrs`
-- `experience_max_yrs`
-- `salary_min_lpa`
-- `salary_max_lpa`
-- `salary_midpoint_lpa`
-- `salary_disclosed`
-- `skills_required`
-- `work_mode`
-- `company_size_bucket`
-- `experience_tier`
-- `is_fresher_friendly`
-
----
-
-## 🧹 Data Preparation
-
-The data was cleaned and transformed using **Power Query** before visualization.
-
-Key preparation steps included:
-
-- Removing duplicate job records
-- Trimming and standardizing text fields
-- Standardizing role categories
-- Cleaning location information
-- Converting salary and experience fields into numeric values
-- Creating salary midpoint values
-- Creating experience tiers
-- Creating fresher-friendly indicators
-- Standardizing work-mode categories
-- Preparing company-size categories
-
----
-
-## 🧩 Skill Data Modeling
-
-The original `skills_required` field contained multiple skills within a single job record.
-
-For example:
+## How the accessibility score works
 
 ```text
-Python, SQL, Pandas, Power BI
+Career Accessibility Score =
+    40% × Fresher Friendly Score
+  + 35% × Experience Accessibility Score
+  + 25% × Demand Score
+```
+
+The demand component normalizes posting counts across roles. The experience component rewards lower average minimum experience. Fresher friendliness is the percentage of records flagged as fresher-friendly. The weights are project design choices; the score is a comparison within this dataset, not a probability of getting hired. See the [full formulas and filter behavior](docs/methodology.md).
+
+## Data model and preparation
+
+The report has two business tables:
+
+- `indian_tech_jobs_2026`: 23,201 job records, with 31 columns after the report's transformations.
+- `Job Skills Cleaned`: 176,390 job–skill rows across 22,657 job IDs.
+
+A one-to-many relationship connects the main table's `job_id` to the skills table's `Job postings` column. Filters flow from jobs to skills. Skill measures count distinct job IDs so that several skills on one posting do not inflate each skill's posting count.
+
+The CSV already contains fields such as salary midpoint, experience tier, company-size bucket, work mode, and fresher-friendly flag. Power Query assigns types, formats job titles, removes two source columns, adds an experience sort key, and expands/cleans skills. It does not recreate all of those upstream features. The exact query text is included in [model/power-query](model/power-query).
+
+## Validation and interpretation
+
+The file has no duplicate rows or duplicate `job_id` values. It does contain **53 missing URL markers**, **2,078 repeated nonmissing URLs beyond their first occurrence**, **90 reversed experience ranges**, and **2 zero salary midpoints marked as disclosed**. The source data is retained unchanged. Details and report-specific checks are in [data-quality.md](docs/data-quality.md).
+
+## Reproduce the checks
+
+Download or clone the repository, then run with Python 3.10 or later:
+
+```sh
+python scripts/audit_dataset.py
+```
+
+This uses the Python standard library, prints checks and role metrics as JSON, and does not modify the CSV. An alternative input path can be passed as the first argument.
+
+## Source and reuse
+
+Dataset: [Indian Tech Job Market 2026 | 23K+ Records](https://www.kaggle.com/datasets/shree0910/india-tech-job-market-2026-23k-records), published by **Shreyash Gade (`shree0910`)** on Kaggle, version 1. The dataset lists Naukri.com as its upstream source and is published under **[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)**. The included CSV is byte-for-byte identical to that download. See [DATA_LICENSE.md](DATA_LICENSE.md) for attribution and scope.

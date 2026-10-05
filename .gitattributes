@@ -1,0 +1,7 @@
+*.md text eol=lf
+*.py text eol=lf
+*.dax text eol=lf
+*.pq text eol=lf
+*.pbix binary
+*.png binary
+data/*.csv -text

@@ -1,6 +1,6 @@
 # Tech Career Trends in India 2026
 
-A Power BI portfolio project for exploring technology roles, salaries, experience requirements, skills, locations, and work modes in an Indian job-posting dataset.
+A Power BI dashboard designed exclusively for people transitioning into technology careers in India. It helps career switchers compare roles by job demand, experience requirements, salary, skills, location, and work arrangements to make informed decisions about their next career path.
 
 **Data period:** the dataset and repository titles contain “2026”, but every supplied record has `scraped_at = 2025-06-10`. The Kaggle description also identifies a 2025 snapshot. Treat the results as analysis of that snapshot, not current vacancies or a year-over-year trend.
 
@@ -20,7 +20,7 @@ A Power BI portfolio project for exploring technology roles, salaries, experienc
 
 ### 1. Career Accessibility
 
-The page heading is **Tech Career Market Overview**. It contains:
+The page heading is **Tech Career Market Overview**. This page helps career switchers compare potential technology career paths by examining entry requirements, salary, fresher-friendly opportunities, work arrangements, and hiring patterns. It contains:
 
 - Work mode by collection city (`scraped_city`).
 - Hiring distribution by company size and role.
@@ -29,7 +29,7 @@ The page heading is **Tech Career Market Overview**. It contains:
 
 ### 2. Career Switcher Profile
 
-Select one role to inspect its accessibility score, average disclosed salary, posting count, average minimum experience, and fresher-friendly share. Supporting charts show salary by experience tier, actionable skills, and the top collection cities.
+This page helps a career switcher explore a chosen target role and plan their transition. Select one role to inspect its accessibility score, average disclosed salary, posting count, average minimum experience, and fresher-friendly share. Supporting charts help users identify skills to learn, compare advertised salaries across experience tiers, and explore the top collection cities.
 
 The saved role selection is **Data Analyst**. Role selectors are synchronized across pages. On the overview page, the role selector does not filter the score comparison or opportunity quadrant, preserving the comparison across roles.
 
